@@ -1,0 +1,26 @@
+﻿@main-color: #121d52;
+@text-color: #505262;
+@turquoise: #1bb1cd;
+@gray: rgba(0, 0, 0, .3);
+@light-gray: #c6c6c6;
+@red: #8c0000;
+@green: #1f6c21;
+
+@gradient: #161680 linear-gradient(110deg, #050142 0%, #161680 35%, @turquoise 100%);
+@gradient-lighten: #30308c linear-gradient(90deg, #30308c 0%, @turquoise 100%);;
+
+//Mixins
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.transition {
+  transition: .15s ease-out;
+}
+.position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

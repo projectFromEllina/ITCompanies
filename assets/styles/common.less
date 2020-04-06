@@ -1,0 +1,118 @@
+﻿@import "./variables";
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: @text-color;
+}
+
+.error-message {
+  font-size: 12px;
+  color: @red;
+}
+
+.border-gradient {
+  padding: 3px;
+  background: @gradient;
+  border-radius: 7px;
+  z-index: -1;
+}
+
+.info-empty {
+  background: @text-color;
+  width: 25px;
+  height: 1.5px;
+  margin-top: 7px;
+}
+
+.main-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: @main-color;
+}
+
+.empty-message {
+  .position-center();
+  width: 75%;
+  color: @light-gray;
+  font-size: 24px;
+  text-align: center;
+  @media(max-width: 475px) {
+    font-size: 20px;
+    top: 60%;
+  }
+}
+
+.tooltip-wrap {
+  position: relative;
+  &:hover {
+    .custom-tooltip {
+      opacity: 1;
+      z-index: 999;
+    }
+  }
+}
+.custom-tooltip {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: #545454;
+  text-transform: none;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  opacity: 0;
+  z-index: -999;
+  .transition();
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top: 7px solid #545454;
+  }
+  &.top {
+    top: -47px;
+    &::before {
+      bottom: -14px;
+    }
+  }
+  &.bottom {
+    bottom: -45px;
+    &::before {
+      transform: translateX(-50%) rotate(180deg);
+      top: -14px;
+    }
+  }
+}
+textarea, input {
+  &::placeholder {
+    color: @light-gray;
+  }
+  &.ng-invalid.ng-touched {
+    border-color: @red !important;
+    box-shadow: 0 0 7px lighten(@red, 50%) !important;
+  }
+}
+
+.main-wrap {
+  min-height: calc(100vh - 105px);
+}
+
+//Scroll
+::-webkit-scrollbar { width: 4px; height: 7px}
+::-webkit-scrollbar-button { display: none; }
+::-webkit-scrollbar-track-piece { background-color: #00000019;}
+::-webkit-scrollbar-thumb { background-color: #0000003F; border-radius: 3px;}
+::-webkit-resizer { background-color: #666;}
+
+@media screen and (max-width: 475px) {
+  bs-datepicker-inline-container {
+    transform: scale(0.85);
+    margin: -20px 0 0 -20px;
+  }
+
+  ::-webkit-scrollbar { width: 3px;}
+}
+

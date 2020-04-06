@@ -1,0 +1,50 @@
+﻿@import "variables";
+
+.btn {
+  pointer-events: revert;
+  display: block;
+  padding: 7px 15px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 5px;
+  .transition();
+  &:hover {
+    cursor: pointer;
+    box-shadow: none;
+    opacity: .8;
+  }
+  &-gradient {
+    background: @gradient;
+    border: 0;
+    &:disabled {
+      opacity: .7;
+      cursor: auto;
+    }
+    &.disabled {
+      background: #6868cff2 linear-gradient(90deg, #5d5db2b3 0%, #71d2e4 100%);
+      cursor: auto;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  &-border {
+    background: #fff;
+    border: 2px solid @main-color;
+    color: @main-color;
+    &:hover {
+      box-shadow: 0 0 5px rgba(30, 5, 110, 0.5);
+    }
+  }
+}
+
+a {
+  .transition();
+}
+
+@media screen and (max-width: 475px) {
+  .btn {
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+}
