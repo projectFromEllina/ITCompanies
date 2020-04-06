@@ -5,8 +5,8 @@ In this application you can register your IT-company, set goals, create a list o
 <br /><br />
 <ul>
   <li>Registration/login with validation:</li>
-  <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/1.JPG" />
-  <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/2.JPG" />
+  <img styles="width: 50%" src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/1.JPG" />
+  <img  styles="width: 50%" src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/2.JPG" />
 <br /><br />
   <li>Homepage for registered user</li>
   <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/3.JPG" />
