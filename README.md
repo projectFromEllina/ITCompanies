@@ -38,7 +38,9 @@ In this application you can register your IT-company, set goals, create a list o
   <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/12.JPG" />
   
   <li>You can add a new employee or delete an existing one</li>
+  <br /><br />
   <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/13.JPG" />
+  <br /><br />
   <img src="https://github.com/projectFromEllina/ITCompanies/blob/master/screenshots/14.JPG" />
   <br /><br />
   <li>The page of all companies</li>
