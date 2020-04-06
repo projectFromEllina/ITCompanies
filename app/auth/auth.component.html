@@ -1,0 +1,31 @@
+<div class="login">
+  <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form__wrap">
+      <div class="login_title">Your company</div>
+      <div class="error-message form-error" *ngIf="isShowError">
+        {{isLoginMode ? 'A company with that name already exists!' : 'Invalid name or password!'}}
+      </div>
+      <div class="form_item" [ngClass]="{'error': form.get('name').invalid && form.get('name').touched}">
+        <label>Name: </label>
+        <input type="text" formControlName="name" placeholder="Enter company name">
+      </div>
+      <div class="form_item" [ngClass]="{'error': form.get('password').invalid && form.get('password').touched}">
+        <label>Password: </label>
+        <input type="password" formControlName="password" placeholder="Enter password">
+        <p class="error-message" *ngIf="form.get('password').errors?.minlength">
+          Password must be longer then {{char}} characters.
+        </p>
+      </div>
+      <button class="btn btn-gradient form_btn"
+              type="submit"
+              [disabled]="form.invalid">{{isLoginMode ? 'Sign up' : 'Sign in'}}
+      </button>
+      <div class="form_text">
+        {{isLoginMode ? "Don't have an account?" : "Already have an account?"}}
+        <span (click)="onSwitchMode()">{{!isLoginMode ? 'Sign up' : 'Sign in'}}</span>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-waiter-loader [isShowLoader]="isShowLoader"></app-waiter-loader>

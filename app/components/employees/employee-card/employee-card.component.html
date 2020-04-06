@@ -1,0 +1,26 @@
+<div class="employee__block" >
+  <div class="employee__photo">
+    <img *ngIf="staff.photo && isWrongUrlImg; else defaultPhoto"
+         [src]="staff.photo"
+         alt="Staff"
+         (error)="isWrongUrlImg = false">
+    <ng-template #defaultPhoto>
+      <div class="employee__photo_default"><span>{{getFirstLetters(staff)}}</span></div>
+    </ng-template>
+  </div>
+  <div class="employee__info">
+    <div class="employee_name">{{staff.firstname + ' ' + staff.lastname}}</div>
+    <div class="employee_position">{{staff.position}}</div>
+    <div class="employee_date">
+      {{staff.date | date: 'dd MMM yyyy'}} <b>|</b><br /> {{getWorkPeriod(staff)}}
+    </div>
+  </div>
+  <button class="employee_delete" (click)="onDeleteEmployee()"></button>
+</div>
+
+<app-custom-popup [isOpenCustomPopup]="isOpenDeletePopup"
+                  [title]="'Delete'"
+                  [text]="'Are you sure you want to delete ' + staff.firstname + ' ' + staff.lastname +'?'"
+                  [textBtn]="'Delete'"
+                  (openPopupEvent)="onDeleteEmployee()"
+                  (onActionEvent)="onDeleteEvent()"></app-custom-popup>

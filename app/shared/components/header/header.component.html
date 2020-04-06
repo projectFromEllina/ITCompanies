@@ -1,0 +1,29 @@
+<header class="header" [class.open]="isOpenMenu">
+  <div class="container">
+    <div class="row">
+      <div class="header__logo">
+        <a *ngIf="company; else forUnregistered" [routerLink]="['/company', company.name]" class="logo">
+          <span>IT</span> Companies
+        </a>
+        <ng-template #forUnregistered>
+          <a routerLink="/companies" class="logo">
+            <span>IT</span> Companies
+          </a>
+        </ng-template>
+      </div>
+      <div class="header__menu" (click)="isOpenMenu = false">
+        <nav>
+          <ul class="menu__wrap">
+            <li><a *ngIf="company" [routerLink]="['/company', company.name]" routerLinkActive="active" class="menu_item">My company</a></li>
+            <li><a *ngIf="company" routerLink="/employees" routerLinkActive="active" class="menu_item">My staff</a></li>
+            <li><a routerLink="/companies" routerLinkActive="active" class="menu_item">All companies</a></li>
+          </ul>
+        </nav>
+        <a (click)="goToAuthorization()" class="btn menu_btn">
+          {{isSignIn ? 'Sign out' : 'Sign in'}}
+        </a>
+      </div>
+      <i class="fa fa-bars" (click)="isOpenMenu = !isOpenMenu"></i>
+    </div>
+  </div>
+</header>

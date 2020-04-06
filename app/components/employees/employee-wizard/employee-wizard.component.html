@@ -1,0 +1,46 @@
+<div class="employee-wizard__wrap" [class.open]="isOpenWizard">
+  <div class="employee-wizard">
+    <div class="employee-wizard_main-title">Add new employee</div>
+    <button class="employee-wizard_close" (click)="onClose()"></button>
+    <div class="employee-wizard__main" #wizard>
+      <div class="main__photo main__item">
+        <label for="photo" class="employee-wizard_title">Photo</label>
+        <input placeholder="Insert photo address..." type="text" id="photo" [(ngModel)]="employee.photo">
+      </div>
+      <div class="main__name main__item">
+        <label for="name" class="employee-wizard_title">Firstname</label>
+        <input placeholder="Enter firstname..." type="text" id="name" [(ngModel)]="employee.firstname" required>
+      </div>
+      <div class="main__lastname main__item">
+        <label for="lastname" class="employee-wizard_title">Lastname</label>
+        <input placeholder="Enter lastname..." type="text" id="lastname" [(ngModel)]="employee.lastname" required>
+      </div>
+      <div class="main__position main__item">
+        <div class="employee-wizard_title">Position</div>
+        <div class="position_select">
+          <span *ngIf="employee.position; else placeholder">{{employee.position}}</span>
+          <ng-template #placeholder>
+            <span class="placeholder">Select position...</span>
+          </ng-template>
+          <i class="fa fa-angle-down"
+             (click)="isOpenSelector = !isOpenSelector"
+             (clickOutside)="isOpenSelector = false"></i>
+        </div>
+        <div class="position_wrap" *ngIf="isOpenSelector">
+          <span *ngFor="let position of allPositions"
+                (click)="onPositionSelect(position)">{{position}}</span>
+        </div>
+      </div>
+      <div class="main__date">
+        <div class="employee-wizard_title">Date of employment</div>
+        <bs-datepicker-inline [bsValue]="bsInlineValue"
+                              [bsConfig]="{containerClass: 'theme-dark-blue'}"
+                              (bsValueChange)="onDateSelect($event)"></bs-datepicker-inline>
+      </div>
+      <button class="employee-wizard_btn btn btn-gradient"
+              (click)="onAddEmployee()"
+              [disabled]="!isValid">Add employee
+      </button>
+    </div>
+  </div>
+</div>

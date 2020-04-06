@@ -1,0 +1,39 @@
+<div class="employees">
+  <div class="container">
+    <div class="employees__search">
+      <input type="text" placeholder="Search employee..."
+             [(ngModel)]="searchName"
+             (input)="onSearchEmployee()">
+      <button class="employees__search_close"
+              *ngIf="searchName.length"
+              (click)="onCloseSearching()"></button>
+    </div>
+    <div class="employees-border border-gradient">
+      <div class="employees__wrap">
+        <div class="employees_title main-title">Employees</div>
+        <div class="employee__blocks" *ngIf="filterEmployees.length || searchName.length; else noEmployees">
+
+          <app-employee-card *ngFor="let staff of filterEmployees"
+                             [staff]="staff"
+                             (onReloadEvent)="onChangeEmployees()"></app-employee-card>
+
+        </div>
+        <button class="employees__btn btn btn-gradient"
+                (click)="onOpenWizard()">Add new employee
+        </button>
+
+        <ng-template #noEmployees>
+          <div class="empty-message">You haven't employees yet</div>
+        </ng-template>
+        <div *ngIf="!filterEmployees.length && searchName.length"
+             class="empty-message">Not found</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-employee-wizard [isOpenWizard]="isOpenWizard"
+                     (onCloseEvent)="onCloseEvent()"
+                     (onAddEmployeeEvent)="onChangeEmployees()"></app-employee-wizard>
+
+<app-waiter-loader [isShowLoader]="isShowLoader"></app-waiter-loader>

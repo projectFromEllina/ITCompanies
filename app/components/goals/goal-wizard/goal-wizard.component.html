@@ -1,0 +1,41 @@
+﻿<div class="goal-wizard__wrap" [class.open]="isOpenWizard">
+  <div class="goal-wizard">
+    <div class="goal-wizard_main-title">{{edit ? 'Edit' : 'Set'}} your goal</div>
+    <button class="goal-wizard_close" (click)="onClose()"></button>
+    <div class="goal-wizard__main">
+      <div class="goal-wizard__dcr">
+        <div class="goal-wizard_title">Description</div>
+        <label for="goal-description">
+          <textarea placeholder="Enter goal..."
+                    id="goal-description"
+                    maxlength="goalMaxLength"
+                    required
+                    [(ngModel)]="description"></textarea>
+          <span class="number">{{description?.length}} / {{goalMaxLength}}</span>
+        </label>
+      </div>
+      <div class="goal-wizard__type">
+        <div class="goal-wizard_title">Type</div>
+        <div class="types">
+          <form (change)="onChangeDate()">
+            <input id="short" name="type" [value]="shortType" type="radio" [(ngModel)]="type">
+            <label for="short" class="types_item">{{getNameTypes(shortType)}}</label>
+            <input id="middle" name="type" [value]="middleType" type="radio" [(ngModel)]="type">
+            <label for="middle" class="types_item" value="middle">{{getNameTypes(middleType)}}</label>
+            <input id="long" name="type" [value]="longType" type="radio" [(ngModel)]="type">
+            <label for="long" class="types_item" value="long">{{getNameTypes(longType)}}</label>
+          </form>
+        </div>
+      </div>
+      <div class="goal-wizard__deadline">
+        <div class="goal-wizard_title">Deadline</div>
+        <bs-datepicker-inline [bsValue]="bsInlineValue"
+                              [bsConfig]="{containerClass: 'theme-dark-blue'}"
+                              (bsValueChange)="onDateSelect($event)"></bs-datepicker-inline>
+      </div>
+      <button class="goal-wizard_btn btn btn-gradient"
+              (click)="onSetGoal()"
+              [disabled]="!isValid">{{edit ? 'Edit' : 'Set'}} goal</button>
+    </div>
+  </div>
+</div>

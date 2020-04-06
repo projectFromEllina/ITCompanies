@@ -1,0 +1,8 @@
+<div class="custom-popup__wrap" [class.open]="isOpenCustomPopup">
+  <div class="custom-popup">
+    <div class="custom-popup__title">{{title}}</div>
+    <button class="custom-popup__close" (click)="onClose()"></button>
+    <div class="custom-popup__text">{{text}}</div>
+    <button class="custom-popup__btn btn btn-gradient" (click)="onAction()">{{textBtn}}</button>
+  </div>
+</div>

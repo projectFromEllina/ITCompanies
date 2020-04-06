@@ -1,0 +1,35 @@
+<div class="goals-border border-gradient">
+  <div class="goals__wrap">
+    <div class="goals_title main-title">Goals</div>
+    <div class="goals" *ngIf="goals && goals.length; else noGoals">
+
+      <app-goal-block *ngFor="let goal of goals; let i = index"
+                      [goal]="goal"
+                      [company]="company"
+                      [isOwnPage]="isOwnPage"
+                      [number]="i + 1"
+                      (onEditGoalEvent)="onEditGoal($event)"
+                      (onEditStatusGoalEvent)="onSetGoalEvent()"></app-goal-block>
+
+    </div>
+    <button class="goals_set-btn btn btn-gradient tooltip-wrap"
+            *ngIf="isOwnPage"
+            [class.disabled]="isNotSetGoal"
+            (click)="onOpenWizard()">Set your goal
+      <span class="custom-tooltip top" *ngIf="isNotSetGoal">You cannot set more than {{maxNumberOfGoals}} goals.</span>
+    </button>
+
+    <ng-template #noGoals>
+      <div class="empty-message">{{setEmptyMessage}}</div>
+    </ng-template>
+  </div>
+</div>
+
+<app-goal-wizard *ngIf="isOpenWizard"
+                 [isOpenWizard]="isOpenWizard"
+                 [goal]="goal"
+                 [company]="company"
+                 (onCloseEvent)="isOpenWizard = false"
+                 (onSetGoalEvent)="onSetGoalEvent()"></app-goal-wizard>
+
+<app-waiter-loader [isShowLoader]="isShowLoader"></app-waiter-loader>

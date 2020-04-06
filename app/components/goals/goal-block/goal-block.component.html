@@ -1,0 +1,83 @@
+﻿<div class="goal__block" *ngIf="goal"
+     [class.complete]="goal.status === 1"
+     [class.reject]="goal.status === 2">
+  <div class="goal-number">{{number}}</div>
+
+  <div class="block__top">
+    <div class="top__status">
+      {{getDescriptionStatus(goal.status)}}
+      <div class="status_type">{{getDescriptionType(goal.type)}}</div>
+    </div>
+    <div class="top__deadline">
+      <div class="top__deadline-title">Deadline: </div>
+      {{goal.deadline | date: 'dd MMM yyyy'}}
+    </div>
+    <div class="top__menu" [class.disabled]="!isOwnPage || goal.status !== 0" (clickOutside)="isShowMenu = false">
+      <i class="fa fa-bars" (click)="isShowMenu = !isShowMenu"></i>
+      <div class="menu" *ngIf="isShowMenu">
+        <div class="menu_item" (click)="onEditGoal(goal)">Edit</div>
+        <div class="menu_item" (click)="onChangeStatus(1)">Complete</div>
+        <div class="menu_item" (click)="onChangeStatus(2)">Reject</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block_timeline">
+    <div class="time" [ngStyle]="{'width': getWidthTimeline(goal)}"></div>
+  </div>
+
+  <div class="block__main">
+    <div class="main__goal">
+      <div class="goal_top title">Goal content</div>
+      <div class="goal_text">{{goal.description}}</div>
+      <div class="goal__likes">
+        <span class="like" (click)="onAddLike(true)" [class.active]="!!like">
+          <i class="fa fa-thumbs-up"></i>
+          {{like || 0}}
+        </span>
+        <span class="like" (click)="onAddLike(false)" [class.active]="!!dislike">
+          <i class="fa fa-thumbs-down"></i>
+          {{dislike || 0}}
+        </span>
+        <div class="disabled-block" *ngIf="isUnregistered" (click)="onPerformAction()"></div>
+      </div>
+    </div>
+    <div class="main__comment">
+      <div class="comment_top title">Comments</div>
+      <div class="comment__main" #commentsWrap>
+        <div class="comment__block"
+             *ngFor="let comment of goal.comments"
+             [class.own]="getIsOwnComment(comment)"
+             [class.first]="getIsFirstComment(comment)">
+          <div class="comment__photo">
+            <img  *ngIf="comment.companyCreator?.img && isWrongUrlImg; else defaultImg"
+                  [src]="comment.companyCreator?.img"
+                  alt="Company"
+                  (error)="isWrongUrlImg = false">
+            <ng-template #defaultImg>
+              <div class="comment__photo_default"><span>{{comment.companyCreator?.name[0]}}</span></div>
+            </ng-template>
+          </div>
+          <div class="comment_name">{{comment.companyCreator.name}}</div>
+          <div class="comment_date">{{getTimeComment(comment)}} {{comment.date | date: 'dd MMM yyyy'}}</div>
+          <div class="comment_text">{{comment.text}}</div>
+        </div>
+
+      </div>
+      <div class="comment__send">
+        <input (keyup.enter)="onSendComment()" type="text" placeholder="Type your comment here" [(ngModel)]="commentText">
+        <button class="btn-send"
+                (click)="onSendComment()"
+                [class.active]="commentText.length"></button>
+        <div class="disabled-block" *ngIf="isUnregistered" (click)="onPerformAction()"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-custom-popup [isOpenCustomPopup]="isOpenAccessPopup"
+                  [title]="'No Access'"
+                  [text]="'You do not have access. If you want to perform some action, first log in.'"
+                  [textBtn]="'Login'"
+                  (openPopupEvent)="onPerformAction()"
+                  (onActionEvent)="onLoginEvent()"></app-custom-popup>

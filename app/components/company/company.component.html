@@ -1,0 +1,70 @@
+﻿<div class="company" *ngIf="company; else notExist">
+  <div class="container">
+
+    <div class="company__info">
+      <div class="info__photo">
+        <img *ngIf="company.img && isLoadImg; else defaultImg"
+             [src]="company.img"
+             alt="Company"
+             (load)="onLoadImg(true)"
+             (error)="onLoadImg(false)">
+        <ng-template #defaultImg>
+          <div class="info__photo_default"><span>{{company.name[0]}}</span></div>
+        </ng-template>
+      </div>
+      <div class="info__content">
+        <div class="info__content_name">
+          {{company.name}}
+          <i class="fa fa-edit" *ngIf="isOwnPage" (click)="isEditMode = true"></i></div>
+        <div class="dcr_item dcr_item-about">
+          <label for="about" class="title">About: </label>
+          <textarea *ngIf="isEditMode else about"
+                    id="about"
+                    rows="3"
+                    maxlength="1000"
+                    [(ngModel)]="company.about"></textarea>
+          <ng-template #about>
+            <span class="info__content_about">
+              <app-show-more [text]="company.about"
+                             [maxSymbols]="265"></app-show-more>
+            </span>
+            <span class="info-empty" *ngIf="!company.about"></span>
+          </ng-template>
+        </div>
+        <div class="dcr_item dcr_item-photo" *ngIf="isEditMode">
+          <label for="info-img" class="title">Photo: </label>
+          <input type="text"
+                 id="info-img"
+                 placeholder="Insert path pictures"
+                 [(ngModel)]="company.img"
+                 (keyup)="onLoadImg(true)">
+        </div>
+
+        <div class="info__content_btn" *ngIf="isEditMode">
+          <button class="btn btn-border" (click)="onClose()">Close</button>
+          <button class="btn btn-gradient" (click)="onSave()" [disabled]="!isValidEditInfo">Save</button>
+        </div>
+
+        <ng-container *ngIf="!isEditMode">
+          <div class="dcr_item">
+            <span class="title">Goals: </span>
+            {{company?.goals?.length || 0}}
+          </div>
+          <div class="dcr_item">
+            <span class="title">Employees: </span>
+            {{company?.employee?.length || 0}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <app-goals [company]="company"
+               [isOwnPage]="isOwnPage"
+               (onSetNewGoalEvent)="setMyCompany()"></app-goals>
+  </div>
+</div>
+<ng-template #notExist>
+  <span class="not-exist">The company {{name}} does not exist</span>
+</ng-template>
+
+<app-waiter-loader [isShowLoader]="isShowLoader"></app-waiter-loader>
+

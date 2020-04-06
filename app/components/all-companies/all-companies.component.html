@@ -1,0 +1,49 @@
+<div class="companies">
+  <div class="container">
+    <div class="companies__search">
+      <input type="text" placeholder="Search company..."
+             [(ngModel)]="searchName"
+             (input)="onSearchCompany()">
+      <button class="companies__search_close"
+              *ngIf="searchName.length"
+              (click)="onCloseSearching()"></button>
+    </div>
+    <div class="companies-border border-gradient">
+      <div class="companies__wrap">
+        <div class="companies_title main-title">Companies</div>
+
+        <div class="company__blocks" *ngIf="filterCompanies.length && !isShowLoader || searchName.length">
+          <div class="company__block" *ngFor="let company of filterCompanies">
+            <a class="company__photo" [routerLink]="['/company', company.name]">
+              <img *ngIf="company.img && isWrongUrlImg; else defaultPhoto"
+                   [src]="company.img"
+                   alt="Staff"
+                   (error)="isWrongUrlImg = false">
+              <ng-template #defaultPhoto>
+                <div class="company__photo_default"><span>{{company.name[0]}}</span></div>
+              </ng-template>
+            </a>
+            <div class="company__info">
+              <a class="company__info_name" [routerLink]="['/company', company.name]">
+                {{company.name}}
+              </a>
+              <div class="company__info_item"><span>Goals: </span>{{company?.goals?.length || 0}}</div>
+              <div class="company__info_item"><span>Employees: </span>{{company?.employee?.length || 0}}</div>
+              <div class="company__info_dcr">
+                <app-show-more [text]="company.about"
+                               [maxSymbols]="numberOfLetters"></app-show-more>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!filterCompanies.length && searchName.length"
+             class="empty-message">Not found
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-waiter-loader [isShowLoader]="isShowLoader"></app-waiter-loader>
+

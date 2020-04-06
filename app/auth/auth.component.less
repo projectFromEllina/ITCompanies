@@ -1,0 +1,117 @@
+@import "../../assets/styles/variables";
+
+.login {
+  &_title {
+    text-align: center;
+    font-size: 22px;
+    color: @main-color;
+    margin-bottom: 20px;
+  }
+  &__form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    min-height: 356px;
+    padding: 4px;
+    background: @gradient;
+    border-radius: 10px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: url("../../assets/images/icon.png") 0 no-repeat;
+      background-size: 100%;
+      border-radius: 50%;
+      border: 6px solid lighten(@main-color, 20%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: -53px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 96px;
+      height: 96px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+  }
+  .form {
+    &__wrap {
+      height: 100%;
+      padding: 60px 30px 25px;
+      background: #fff;
+      border-radius: inherit;
+      input {
+        height: 33px;
+        width: 190px;
+        padding: 3px 10px;
+        font-size: 14px;
+        border-radius: 2px;
+        border: 1px solid @light-gray;
+        &::placeholder {
+          color: @light-gray;
+        }
+      }
+    }
+    &_item {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      &.error {
+        input {
+          border: 1px solid @red;
+          box-shadow: 0 0 3px lighten(@red, 60%);
+        }
+      }
+    }
+    &_btn {
+      margin: 40px auto;
+      width: 250px;
+      height: 40px;
+    }
+    &_text {
+      color: @main-color;
+      text-align: center;
+      span {
+        font-weight: 700;
+        color: lighten(@main-color, 20%);
+        cursor: pointer;
+        .transition();
+        &:hover {
+          color: @turquoise;
+        }
+      }
+    }
+    &-error {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  }
+  p.error-message {
+    position: absolute;
+    bottom: -20px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .login {
+    &__form {
+      width: 300px;
+    }
+    .form__wrap {
+      padding: 60px 15px 25px;
+      input {
+        width: 180px;
+      }
+    }
+  }
+}
